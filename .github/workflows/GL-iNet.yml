@@ -12,7 +12,7 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/monw/gl-infra-builder.git ##可以改成自己的仓库
+  REPO_URL: https://github.com/gl-inet/gl-infra-builder.git ##可以改成自己的仓库
   REPO_BRANCH: main
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
@@ -47,10 +47,11 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH
         cd gl-infra-builder
-        svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-accesscontrol feeds/glinet/luci-app-accesscontrol
+        svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-aliyundrive-fuse feeds/glinet/luci-app-aliyundrive-fuse
         svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-ramfree feeds/glinet/luci-app-ramfree
         svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-zerotier feeds/glinet/luci-app-zerotier
         svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier feeds/glinet/zerotier
+        svn co https://github.com/coolsnowwolf/packages/trunk/multimedia/aliyundrive-fuse feeds/glinet/aliyundrive-fuse
         python3 setup.py -c config-wlan-ap-5.4.yml
         cd wlan-ap/openwrt
         svn checkout https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
