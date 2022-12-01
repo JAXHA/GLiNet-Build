@@ -37,7 +37,7 @@ jobs:
         sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
-        sudo apt install -y build-essential libncurses5-dev gawk git libssl-dev gettext zlib1g-dev swig unzip time rsync python3.x python3-setuptools python3-yaml
+        sudo apt install -y build-essential libncurses5-dev gawk git libssl-dev gettext zlib1g-dev swig unzip time rsync python3 python3-setuptools python3-yaml
         sudo timedatectl set-timezone "$TZ"
         git config --global user.email "hai33590@163.com"  ##修改成自己的GitHub注册邮箱地址
         git config --global user.name "JAXHA" ##修改成自己的GitHub用户名。
@@ -52,7 +52,7 @@ jobs:
         svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-zerotier feeds/glinet/luci-app-zerotier
         svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier feeds/glinet/zerotier
         svn co https://github.com/coolsnowwolf/packages/trunk/multimedia/aliyundrive-fuse feeds/glinet/aliyundrive-fuse
-        python3 setup.py -c config-wlan-ap-5.4.yml
+        python3 setup.py -c configs/config-wlan-ap-5.4.yml
         cd wlan-ap/openwrt
         svn checkout https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
         svn checkout https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
