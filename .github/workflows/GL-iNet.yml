@@ -1,6 +1,8 @@
 name: Build ax1800
 
 on:
+  schedule:
+    - cron: 0 16 * * *
   watch:
     types: started
   repository_dispatch:
@@ -34,7 +36,7 @@ jobs:
         sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
-        sudo -E apt-get -qq install python build-essential libncurses5-dev gawk git libssl-dev gettext zlib1g-dev swig unzip time rsync python3 python3-setuptools python3-yaml subversion -y
+        sudo -E apt-get -qq install binutils bzip2 diff find flex gawk gcc-6+ getopt grep install libc-dev libz-dev make4.1+ perl python3.6+ rsync subversion unzip which libncurses5-dev zlib1g-dev gawk gcc-multilib g++-multilib flex git-core gettext libssl-dev ocaml sharutils re2c -y
         sudo timedatectl set-timezone "$TZ"
         git config --global user.email "hai33590@163.com"  ##修改成自己的GitHub注册邮箱地址
         git config --global user.name "JAXHA" ##修改成自己的GitHub用户名。
@@ -44,15 +46,15 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH
         cd gl-infra-builder
-        svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-aliyundrive-fuse feeds/glinet/luci-app-aliyundrive-fuse
-        svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-ramfree feeds/glinet/luci-app-ramfree
-        svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-zerotier feeds/glinet/luci-app-zerotier
-        svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier feeds/glinet/zerotier
-        svn co https://github.com/coolsnowwolf/packages/trunk/multimedia/aliyundrive-fuse feeds/glinet/aliyundrive-fuse
+        svn co https://github.com/coolsnowwolf/luci/applications/luci-app-aliyundrive-fuse feeds/glinet/luci-app-aliyundrive-fuse
+        svn co https://github.com/Lienol/openwrt-package/luci-app-ramfree feeds/glinet/luci-app-ramfree
+        svn co https://github.com/kiddin9/openwrt-packages/luci-app-zerotier feeds/glinet/luci-app-zerotier
+        svn co https://github.com/coolsnowwolf/packages/net/zerotier feeds/glinet/zerotier
+        svn co https://github.com/coolsnowwolf/packages/multimedia/aliyundrive-fuse feeds/glinet/aliyundrive-fuse
         python3 setup.py -c configs/config-wlan-ap-5.4.yml
         cd wlan-ap/openwrt
-        svn checkout https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
-        svn checkout https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
+        svn checkout https://github.com/coolsnowwolf/lede/tools/ucl tools/ucl
+        svn checkout https://github.com/coolsnowwolf/lede/tools/upx tools/upx
         sed -i '/tools-y += patchelf pkgconf quilt squashfskit4 sstrip zip zlib zstd/a tools-y += ucl upx' tools/Makefile
         sed -i '/$(curdir)\/bison\/compile := $(curdir)\/flex\/compile/a $(curdir)\/upx\/compile := $(curdir)\/ucl\/compile' tools/Makefile        
         #sed -i '$a src-git liuran001_packages https://github.com/liuran001/openwrt-packages' feeds.conf.default ##添加liuran001源
