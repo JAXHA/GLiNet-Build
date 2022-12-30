@@ -36,7 +36,7 @@ jobs:
         sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
-        sudo apt install -y binutils bzip2 diff find flex gawk gcc-6+ getopt grep install libc-dev libz-dev make4.1+ perl python3.6+ rsync subversion unzip which libncurses5-dev zlib1g-dev gawk gcc-multilib g++-multilib flex git-core gettext libssl-dev ocaml sharutils re2c -y
+        sudo apt install -y build-essential libncurses5-dev gawk git libssl-dev gettext zlib1g-dev swig unzip time rsync python3 python3-setuptools python3-yaml
         sudo timedatectl set-timezone "$TZ"
         git config --global user.email "hai33590@163.com"  ##修改成自己的GitHub注册邮箱地址
         git config --global user.name "JAXHA" ##修改成自己的GitHub用户名。
