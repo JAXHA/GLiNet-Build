@@ -53,8 +53,10 @@ jobs:
         svn co https://github.com/coolsnowwolf/packages/trunk/multimedia/aliyundrive-fuse feeds/glinet/aliyundrive-fuse
         python3 setup.py -c configs/config-wlan-ap-5.4.yml
         cd wlan-ap/openwrt
-        #svn checkout https://github.com/coolsnowwolf/lede/tools/ucl tools/ucl
-        #svn checkout https://github.com/coolsnowwolf/lede/tools/upx tools/upx
+        svn checkout https://github.com/coolsnowwolf/lede/trunk/tools/ucl tools/ucl
+        svn checkout https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
+        sed -i 'N;24a\tools-y += ucl upx' tools/Makefile
+        sed -i 'N;40a\$(curdir)/upx/compile := $(curdir)/ucl/compile' tools/Makefile
         sed -i '/tools-y += patchelf pkgconf quilt squashfskit4 sstrip zip zlib zstd/a tools-y += ucl upx' tools/Makefile
         sed -i '/$(curdir)\/bison\/compile := $(curdir)\/flex\/compile/a $(curdir)\/upx\/compile := $(curdir)\/ucl\/compile' tools/Makefile        
         #sed -i '$a src-git liuran001_packages https://github.com/liuran001/openwrt-packages' feeds.conf.default ##添加liuran001源
